@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aglview:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="AglTestApp.Views.PetsPage" xmlns:aglview="clr-namespace:AglTestApp.Views;assembly=AglTestApp">
+    <aglview:BasePage.Content>
+        <ListView ItemsSource="{Binding PetsList}" IsGroupingEnabled="true" HasUnevenRows="True" SeparatorVisibility="Default">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Text}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell Height="23">
+                        <StackLayout BackgroundColor="Gray">
+                            <Label Text="{Binding Key}" TextColor="White" FontSize="Small" VerticalOptions="CenterAndExpand" Margin="10,0,0,0" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+        </ListView>
+    </aglview:BasePage.Content>
+</aglview:BasePage>
