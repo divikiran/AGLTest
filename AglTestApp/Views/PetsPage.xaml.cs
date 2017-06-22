@@ -11,19 +11,12 @@ namespace AglTestApp.Views
         {
             get;
             set;
-        } = new PetsViewModel();
-
-        public PetsPage()
-        {
-            BindingContext = ViewModel;
-            InitializeComponent();
         }
 
-        protected override void OnAppearing()
+        public PetsPage(PetsViewModel petViewModel)
         {
-            base.OnAppearing();
-
-
+            BindingContext = ViewModel = petViewModel;
+            InitializeComponent();
         }
     }
 }

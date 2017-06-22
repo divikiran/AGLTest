@@ -8,37 +8,38 @@ namespace AglTestApp.Views
     {
         public BasePage()
         {
-            //InitializeComponent();
+            this.SetBinding(BasePage.TitleProperty, "Title");
         }
+
         public BaseViewModel BaseViewModel
-		{
-			get;
-			set;
-		}
+        {
+            get;
+            set;
+        }
 
-		protected async override void OnDisappearing()
-		{
-			base.OnDisappearing();
-			if (BindingContext != null && BindingContext is BaseViewModel)
-			{
+        protected async override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            if (BindingContext != null && BindingContext is BaseViewModel)
+            {
                 BaseViewModel = (BaseViewModel)BindingContext;
-				BaseViewModel.CurrentPage = this;
-				BaseViewModel.Navigation = this.Navigation;
-				await BaseViewModel?.OnDisappearing();
-			}
-		}
+                BaseViewModel.CurrentPage = this;
+                BaseViewModel.Navigation = this.Navigation;
+                await BaseViewModel?.OnDisappearing();
+            }
+        }
 
-		protected async override void OnAppearing()
-		{
-			base.OnAppearing();
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
 
-			if (BindingContext != null && BindingContext is BaseViewModel)
-			{
-				BaseViewModel = (BaseViewModel)BindingContext;
-				BaseViewModel.CurrentPage = this;
-				BaseViewModel.Navigation = this.Navigation;
-				await BaseViewModel?.OnAppearing();
-			}
-		}
+            if (BindingContext != null && BindingContext is BaseViewModel)
+            {
+                BaseViewModel = (BaseViewModel)BindingContext;
+                BaseViewModel.CurrentPage = this;
+                BaseViewModel.Navigation = this.Navigation;
+                await BaseViewModel?.OnAppearing();
+            }
+        }
     }
 }

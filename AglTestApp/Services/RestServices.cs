@@ -54,7 +54,6 @@ namespace AglTestApp.Services
 			{
 				Debug.WriteLine("RestClient : " + ex.Message + " " + ex.StackTrace);
 				throw;
-				
 			}
         }
     }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AglTestApp.Helpers;
 using AglTestApp.Implementations;
+using AglTestApp.Interfaces;
 using AglTestApp.Models;
 
 namespace AglTestApp.ViewModels
@@ -51,11 +52,17 @@ namespace AglTestApp.ViewModels
             }
         }
 
-        public OwnersRepository OwnerRepo
+        public IOwnersRepository OwnerRepo
         {
             get;
             set;
-        } = new OwnersRepository();
+        } 
+
+        public PetsViewModel(IOwnersRepository iOwnersRepository)
+        {
+            OwnerRepo = iOwnersRepository;
+            Title = "Pets Collection";
+        }
 
         public async override Task OnAppearing()
         {
@@ -64,7 +71,20 @@ namespace AglTestApp.ViewModels
             if (OwnerPetsList != null)
                 return;
 
-            OwnerPetsList = await OwnerRepo.GetData();
+
+            try
+            {
+                AcrInstance.ShowLoading();
+                OwnerPetsList = await OwnerRepo.GetData();
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                AcrInstance.HideLoading();
+            }
         }
     }
 }

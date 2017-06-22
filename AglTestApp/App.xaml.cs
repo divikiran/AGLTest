@@ -1,15 +1,39 @@
-﻿using AglTestApp.Views;
+﻿using System;
+using AglTestApp.Views;
+using Microsoft.Practices.Unity;
 using Xamarin.Forms;
+using AglTestApp.Interfaces;
+using AglTestApp.Implementations;
 
 namespace AglTestApp
 {
     public partial class App : Application
     {
+
+        public static UnityContainer Container
+        {
+            get;
+            set;
+        }
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new PetsPage());
+            if (Container == null)
+            {
+                Container = new UnityContainer();
+            }
+
+            Initialize();
+
+            MainPage = new NavigationPage(Container.Resolve<PetsPage>());
+        }
+
+        private void Initialize()
+        {
+            //Container.RegisterType<IRepository<T>, Repository>();
+            Container.RegisterType<IOwnersRepository, OwnersRepository>();
         }
 
         protected override void OnStart()
