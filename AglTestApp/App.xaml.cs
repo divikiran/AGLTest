@@ -4,6 +4,7 @@ using Microsoft.Practices.Unity;
 using Xamarin.Forms;
 using AglTestApp.Interfaces;
 using AglTestApp.Implementations;
+using Acr.UserDialogs;
 
 namespace AglTestApp
 {
@@ -32,8 +33,9 @@ namespace AglTestApp
 
         private void Initialize()
         {
-            //Container.RegisterType<IRepository<T>, Repository>();
+            Container.RegisterInstance<IUserDialogs>(UserDialogs.Instance);
             Container.RegisterType<IOwnersRepository, OwnersRepository>();
+
         }
 
         protected override void OnStart()

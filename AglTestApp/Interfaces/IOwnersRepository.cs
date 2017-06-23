@@ -5,7 +5,7 @@ using AglTestApp.Models;
 
 namespace AglTestApp.Interfaces
 {
-    public interface IOwnersRepository: IRepository<OwnerPets>
+    public interface IOwnersRepository
     {
         Task<List<OwnerPets>> GetData();
     }

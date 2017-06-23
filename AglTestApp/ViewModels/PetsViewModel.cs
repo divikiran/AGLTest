@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 using AglTestApp.Helpers;
 using AglTestApp.Implementations;
 using AglTestApp.Interfaces;
@@ -39,6 +40,7 @@ namespace AglTestApp.ViewModels
                                                      group b by new { b.Gender, b.Pets } into groupedByGender
                                                      where groupedByGender.Key.Pets != null
                                                      from pet in groupedByGender.Key.Pets
+                                                     where pet.Type == "Cat"
                                                      group pet by new { pet, groupedByGender.Key.Gender } into groupedByPet
                                                      select new PetsCollection(groupedByPet.Key.Gender, groupedByPet.Key.pet)).ToList();
 
@@ -56,12 +58,17 @@ namespace AglTestApp.ViewModels
         {
             get;
             set;
-        } 
+        }
 
         public PetsViewModel(IOwnersRepository iOwnersRepository)
         {
             OwnerRepo = iOwnersRepository;
             Title = "Pets Collection";
+        }
+
+        public async Task GetOwnerPetsList()
+        {
+            OwnerPetsList = await OwnerRepo.GetData();
         }
 
         public async override Task OnAppearing()
@@ -74,16 +81,20 @@ namespace AglTestApp.ViewModels
 
             try
             {
+#if !APPTESTS
                 AcrInstance.ShowLoading();
-                OwnerPetsList = await OwnerRepo.GetData();
+#endif
+                await GetOwnerPetsList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw e;
             }
             finally
             {
+#if !APPTESTS
                 AcrInstance.HideLoading();
+#endif
             }
         }
     }

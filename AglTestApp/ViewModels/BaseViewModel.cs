@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using Acr.UserDialogs;
 using AglTestApp.Views;
 using Xamarin.Forms;
+using Microsoft.Practices.Unity;
 
 namespace AglTestApp.ViewModels
 {
-    public class BaseViewModel: INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public BaseViewModel()
         {
+#if !APPTESTS
             AcrInstance = UserDialogs.Instance;
+#endif
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

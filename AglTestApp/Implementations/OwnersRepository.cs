@@ -7,24 +7,24 @@ using AglTestApp.Services;
 
 namespace AglTestApp.Implementations
 {
-    public class OwnersRepository : Repository<OwnerPets>, IOwnersRepository
+    public class OwnersRepository : IOwnersRepository
     {
-		public async Task<List<OwnerPets>> GetData()
-		{
-			try
-			{
-				var httpClient = new RestServices<List<OwnerPets>>();
+        public async Task<List<OwnerPets>> GetData()
+        {
+            try
+            {
+                var httpClient = new RestServices<List<OwnerPets>>();
                 List<OwnerPets> list = await httpClient.GetAllAsync();
 
                 if (list == null || list.Count == 0)
                     return null;
-                
-				return list;
-			}
-			catch (Exception e)
-			{
-				throw e;
-			}
-		}
+
+                return list;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
